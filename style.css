@@ -4,6 +4,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 100vw;
+  align-items: center;
 }
 
 div {
@@ -21,7 +23,7 @@ div {
 
 main {
   display: flex;
-  flex-basis: 90%;
+  /* flex-basis: 90%; */
 }
 
 /* canvas {
