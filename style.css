@@ -10,9 +10,14 @@ div {
   width: 200px;
   height: 40px;
   background: red;
+  margin-bottom: 10px;
 }
 
-canvas {
+main {
+  display: flex;
+}
+
+/* canvas {
   width: 100vw;
   height: 100vh;
-}
+} */
