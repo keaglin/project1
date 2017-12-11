@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+}
+
+div {
+  width: 200px;
+  height: 40px;
+  background: red;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+}
