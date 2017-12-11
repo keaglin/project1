@@ -2,6 +2,10 @@
 
 var disks = document.getElementsByTagName('div')
 // var posts = document.getElementsByClassName('post')
+var posts = [
+  document.body.childNodes[5].childNodes[1],
+  document.body.childNodes[5].childNodes[3],
+  document.body.childNodes[5].childNodes[5]]
 var play = []
 
 for (var i = 0; i < disks.length; i++) {
@@ -31,12 +35,13 @@ function moveDisk(e) {
       // once we figure that out, we can see what the id of the top one is and if it's bigger than the one we wanna move, no bones
     // 3) the post the user wants to move it to isn't the one it's currently on
   // canMove(play)
+  // if this is the disk on top, move it
   if (parent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
       // for now, let's "move" a disk when clicked
       // moves only if it's the top disk
-    document.body.childNodes[5].childNodes[3].insertBefore(e.target, document.body.childNodes[5].childNodes[3].firstElementChild);
+    posts[2].insertBefore(e.target, posts[2].firstElementChild);
     console.log('disk moved')
-    console.log(e)
+    console.log(parent.dataset.id)
   }
 }
 
