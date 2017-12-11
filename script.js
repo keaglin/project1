@@ -13,6 +13,10 @@ function moveDisk(e) {
     // 1) it's the top disk on its post
     // 2) the post the user wants to move it to isn't the one it's on
     // 3) the disk isn't bigger than the one on the target post
+
+  // for now, let's "move" a disk when clicked
+  var parent = e.target.parentNode
+  document.body.childNodes[5].childNodes[3].insertBefore(e.target, document.body.childNodes[5].childNodes[3].firstElementChild);
   console.log('disk moved')
   console.log(e)
 }

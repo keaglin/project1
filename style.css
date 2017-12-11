@@ -10,11 +10,18 @@ div {
   width: 200px;
   height: 40px;
   background: red;
-  margin-bottom: 10px;
+  margin: 0 10px 10px 0;
+}
+
+post {
+  margin: 20px;
+  padding: 10px;
+  min-width: 33%;
 }
 
 main {
   display: flex;
+  flex-basis: 90%;
 }
 
 /* canvas {
