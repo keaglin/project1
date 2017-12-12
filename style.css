@@ -17,6 +17,25 @@ div {
   box-sizing: border-box;
 }
 
+#disk1 {
+  width: 20%;
+}
+#disk2 {
+  width: 30%;
+}
+#disk3 {
+  width: 40%;
+}
+#disk4 {
+  width: 50%;
+}
+#disk5 {
+  width: 60%;
+}
+#disk6 {
+  width: 70%;
+}
+
 .post {
   margin: 20px;
   padding: 10px;
@@ -27,7 +46,7 @@ div {
 
 main {
   display: flex;
-  flex-basis: 100%;
+  /* flex-basis: 100%; */
   /* min-width: 100%; */
 }
 
