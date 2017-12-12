@@ -6,12 +6,57 @@ var posts = [
   document.body.childNodes[5].childNodes[1],
   document.body.childNodes[5].childNodes[3],
   document.body.childNodes[5].childNodes[5]]
-var play = []
+// var play = []
 
-for (var i = 0; i < disks.length; i++) {
-  disks[i].addEventListener('click', moveDisk)
+// for (var i = 0; i < disks.length; i++) {
+//   disks[i].addEventListener('click', moveDisk)
+// }
+
+for (var i = 0; i < posts.length; i++) {
+  posts[i].addEventListener('click', moveDisk)
 }
 
+// document.getElementById("test").addEventListener('click', first)
+// function first(e){
+//   e.stopImmediatePropagation()
+//   // e.preventDefault()
+//   this.removeEventListener("click", first)
+//   document.onclick = second
+// }
+// function second(){
+//   alert("I'm not supposed to appear after the first click, only the second.")
+// }
+
+for (var i = 0; i < disks.length; i++) {
+  disks[i].addEventListener('click', function(e) {
+    moveDisk(e)
+  })
+}
+
+function getTarget(e) {
+  if (!e) {
+    e = window.event
+  }
+  return e.target || e.srcElement
+}
+
+function moveDisk(e) {
+  var target, elParent, elGrandparent
+  target = getTarget(e)
+  elParent = target.parentNode
+  console.log(`Target is ${target}`)
+  console.log(`el Parent is ${elParent}`)
+  console.log(`target.parentNode is ${target.parentNode}`)
+  console.log('elParent.childNodes is ' + !!(elParent.childNodes))
+  console.log(target)
+  // elGrandparent = target.parentNode.parentNode
+  if (target.parentNode.childNodes) {
+    if (elParent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
+      target.parentNode.removeChild(target)
+      posts[2].insertBefore(e.target, posts[2].firstElementChild)
+    }
+  }
+}
 // for (var i = 0; i < posts.length; i++) {
 //   posts[i].addEventListener('click', function(e) {
 //     play.push(e.srcElement.dataset.id)
@@ -24,9 +69,17 @@ for (var i = 0; i < disks.length; i++) {
 //   })
 // })
 
-function moveDisk(e) {
-  var parent = e.target.parentNode
-  play.push(parent.dataset.id)
+// check to see if there are any disks, and if not then throw error and make it an invalid selection
+// whenever you click on a post, if it is the first phase, you say  you want to move the top most disk
+// in the second phase, you move the selected disk to the post selected by the second click/phase
+
+// function anyDisks(e) {
+//   if (e.target.dataset.id) moveDisk()
+// }
+
+// function moveDisk(e) {
+//   var parent = e.target.parentNode
+  // play.push(parent.dataset.id)
   // we want to get the parent of the disk being moved to present relevant options on where it can be moved next
   // we want to allow the user to move this disk to another post but only if
     // 1) it's the top disk on its own post
@@ -36,14 +89,14 @@ function moveDisk(e) {
     // 3) the post the user wants to move it to isn't the one it's currently on
   // canMove(play)
   // if this is the disk on top, move it
-  if (parent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
+  // if (parent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
       // for now, let's "move" a disk when clicked
       // moves only if it's the top disk
-    posts[2].insertBefore(e.target, posts[2].firstElementChild);
-    console.log('disk moved')
-    console.log(parent.dataset.id)
-  }
-}
+//     posts[2].insertBefore(e.target, posts[2].firstElementChild)
+//     console.log('disk moved')
+//     console.log(parent.dataset.id)
+//   }
+// }
 
 // function canMove(play) {
 //   if (play[0] === play[1]) {
