@@ -1,0 +1,2 @@
+reset button
+score

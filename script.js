@@ -8,13 +8,29 @@ var posts = [
   document.body.childNodes[5].childNodes[5]]
 // var play = []
 
-// for (var i = 0; i < disks.length; i++) {
-//   disks[i].addEventListener('click', moveDisk)
-// }
+var currentDisk = null
+
+for (var i = 0; i < disks.length; i++) {
+  disks[i].addEventListener('click', selected)
+}
+
+function selected(e) {
+  e.className += ' selected'
+  currentDisk = e.target.parentNode.firstElementChild
+}
 
 for (var i = 0; i < posts.length; i++) {
-  posts[i].addEventListener('click', moveDisk)
+  if (posts[i].classList[1] === 'tower') {
+    posts[i].addEventListener('click', function() {
+      currentDisk.parentNode.removeChild(currentDisk)
+      this.insertBefore(currentDisk, this.firstElementChild)
+    })
+  }
 }
+
+// for (var i = 0; i < posts.length; i++) {
+//   posts[i].addEventListener('click', moveDisk)
+// }
 
 // document.getElementById("test").addEventListener('click', first)
 // function first(e){
@@ -28,24 +44,48 @@ for (var i = 0; i < posts.length; i++) {
 // }
 
 
+// for (var i = 0; i < disks.length; i++) {
+//   disks[i].addEventListener('click', first)
+// }
 
-for (var i = 0; i < disks.length; i++) {
-  disks[i].addEventListener('click', first)
-}
+// for (var i = 0; i < posts.length; i++) {
+//   posts[i].addEventListener('click', first)
+// }
 
 function first(e) {
   // e.stopImmediatePropogation()
   // e.preventDefault()
   e.stopImmediatePropagation()
   this.removeEventListener('click', first)
-  posts.addEventListener('click', moveDisk)
+  // want to get the posts that weren't clicked and addEvtLstnr
+  for (var i = 0; i < posts.length; i++) {
+    if (e.target.dataset.id !== posts[i].dataset.id) {
+      console.log(`posts[${i}]'s ID is ${posts[i].dataset.id}`)
+      posts[i].addEventListener('click', moveDisk)
+    }
+  }
 }
+
+
+
+// if currentDisk < dest.lastChild
+  // movedisk
+  // else
+    // alert(try again)
 
 function getTarget(e) {
   if (!e) {
     e = window.event
   }
   return e.target || e.srcElement
+}
+
+// current moveDisk revision
+function moveDisk(e) {
+  var target, child
+  target = getTarget(e)
+  console.log(e.target.dataset)
+  console.log(target)
 }
 
 function moveDiskr2(e) {
@@ -68,6 +108,8 @@ function moveDiskr2(e) {
     }
   }
 }
+
+
 // for (var i = 0; i < posts.length; i++) {
 //   posts[i].addEventListener('click', function(e) {
 //     play.push(e.srcElement.dataset.id)
