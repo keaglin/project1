@@ -17,14 +17,18 @@ for (var i = 0; i < disks.length; i++) {
 function selected(e) {
   e.className += ' selected'
   currentDisk = e.target.parentNode.firstElementChild
+  moveDisk()
 }
 
-for (var i = 0; i < posts.length; i++) {
-  if (posts[i].classList[1] === 'tower') {
-    posts[i].addEventListener('click', function() {
-      currentDisk.parentNode.removeChild(currentDisk)
-      this.insertBefore(currentDisk, this.firstElementChild)
-    })
+function moveDisk() {
+  for (var i = 0; i < posts.length; i++) {
+    if (posts[i].dataset.id !== currentDisk.parentNode.dataset.id) {
+    // if (posts[i].classList[1] === 'tower') {
+      posts[i].addEventListener('click', function() {
+        currentDisk.parentNode.removeChild(currentDisk)
+        this.insertBefore(currentDisk, this.firstElementChild)
+      })
+    }
   }
 }
 
@@ -80,13 +84,13 @@ function getTarget(e) {
   return e.target || e.srcElement
 }
 
-// current moveDisk revision
-function moveDisk(e) {
-  var target, child
-  target = getTarget(e)
-  console.log(e.target.dataset)
-  console.log(target)
-}
+// moveDisk revision 3
+// function moveDiskr3(e) {
+//   var target, child
+//   target = getTarget(e)
+//   console.log(e.target.dataset)
+//   console.log(target)
+// }
 
 function moveDiskr2(e) {
   // because of the way I handled event delegation, I think I now need to retool this
