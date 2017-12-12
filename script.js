@@ -27,10 +27,18 @@ for (var i = 0; i < posts.length; i++) {
 //   alert("I'm not supposed to appear after the first click, only the second.")
 // }
 
+
+
 for (var i = 0; i < disks.length; i++) {
-  disks[i].addEventListener('click', function(e) {
-    moveDisk(e)
-  })
+  disks[i].addEventListener('click', first)
+}
+
+function first(e) {
+  // e.stopImmediatePropogation()
+  // e.preventDefault()
+  e.stopImmediatePropagation()
+  this.removeEventListener('click', first)
+  posts.addEventListener('click', moveDisk)
 }
 
 function getTarget(e) {
@@ -40,7 +48,10 @@ function getTarget(e) {
   return e.target || e.srcElement
 }
 
-function moveDisk(e) {
+function moveDiskr2(e) {
+  // because of the way I handled event delegation, I think I now need to retool this
+  // with the POV that e is the post, not the disk
+  console.log('moved')
   var target, elParent, elGrandparent
   target = getTarget(e)
   elParent = target.parentNode
@@ -77,7 +88,7 @@ function moveDisk(e) {
 //   if (e.target.dataset.id) moveDisk()
 // }
 
-// function moveDisk(e) {
+// function moveDiskr1(e) {
 //   var parent = e.target.parentNode
   // play.push(parent.dataset.id)
   // we want to get the parent of the disk being moved to present relevant options on where it can be moved next
