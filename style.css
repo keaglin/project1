@@ -17,22 +17,22 @@ div {
   box-sizing: border-box;
 }
 
-#disk1 {
+#disk0 {
   width: 20%;
 }
-#disk2 {
+#disk1 {
   width: 30%;
 }
-#disk3 {
+#disk2 {
   width: 40%;
 }
-#disk4 {
+#disk3 {
   width: 50%;
 }
-#disk5 {
+#disk4 {
   width: 60%;
 }
-#disk6 {
+#disk5 {
   width: 70%;
 }
 

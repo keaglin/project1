@@ -14,23 +14,103 @@ for (var i = 0; i < disks.length; i++) {
   disks[i].addEventListener('click', selected)
 }
 
-function selected(e) {
-  e.className += ' selected'
-  currentDisk = e.target.parentNode.firstElementChild
-  moveDisk()
+function clearDisk () {
+  currentDisk = null
+  // alert('Pick a disk')
 }
 
-function moveDisk() {
+function selected (e) {
+  console.log('selected was called')
+  // e.className += ' selected'
+  currentDisk = e.target.parentNode.firstElementChild
+  console.log(`current disk selected and it is disk${currentDisk.dataset.id}`)
+  if (!currentDisk) console.log('no disk selected')
+  else moveDisk()
+  // while (currentDisk) {
+  //   moveDisk()
+  //   clearDisk()
+  // }
+  // clearDisk()
+}
+
+// desired behavior
+// as long as currentDisk is defined, we want to attempt to move that disk
+// after a disk is moved
+  // clearDisk
+// if a move is deemed illegal
+  // alert user
+  // clearDisk
+
+function moveDisk () {
   for (var i = 0; i < posts.length; i++) {
     if (posts[i].dataset.id !== currentDisk.parentNode.dataset.id) {
-    // if (posts[i].classList[1] === 'tower') {
-      posts[i].addEventListener('click', function() {
-        currentDisk.parentNode.removeChild(currentDisk)
-        this.insertBefore(currentDisk, this.firstElementChild)
-      })
+    // if (posts[i].classList[1] === 'tower') { <- the first version of this conditional and use of `this` was Mike's idea and led to me figuring out my issue at the time
+      posts[i].addEventListener('click', function (e) {
+        // we only want to move it if the post it's going to either 1) has no children or
+        // 2) the disk we're moving is smaller than the first child of the destination post
+        // if (e.target.hasChildNodes() === false) { // if dest post has no children, move selected disk
+        //   console.log(`currentDisk is disk${currentDisk.dataset.id}`)
+        //   console.log(`destination post is ${e.target.dataset.id}`)
+        //   currentDisk.parentNode.removeChild(currentDisk)
+        //   this.insertBefore(currentDisk, this.firstElementChild)
+        // } else if (e.target.hasChildNodes() === true) { // if it has children, is the current disk smaller than the first child?
+        //   if (currentDisk.dataset.id < e.target.firstElementChild.dataset.id) {
+        //     currentDisk.parentNode.removeChild(currentDisk)
+        //     this.insertBefore(currentDisk, this.firstElementChild)
+        //   } else window.alert(`You can't put that piece here`)
+        // console.log(`inside post EL, current disk is disk${currentDisk.dataset.id}`)
+        if (e.target.hasChildNodes()) { // if it has children, is the current disk smaller than the first child?
+          // console.log(`post.hasChildNodes? cool current disk selected and it is disk${currentDisk.dataset.id}`)
+          if (currentDisk.dataset.id < e.target.firstElementChild.dataset.id) {
+            // console.log(`is current disk smaller than the first child of the target? Idk but current disk selected and it is disk${currentDisk.dataset.id}`)
+            currentDisk.parentNode.removeChild(currentDisk)
+            this.insertBefore(currentDisk, this.firstElementChild)
+            // currentDisk = null
+            clearDisk()
+            console.log(`current disk is ${currentDisk}`)
+          } else if (currentDisk.dataset.id > e.target.firstElementChild.dataset.id) {
+            // console.log(`current disk bigger than first child of target post and it is disk${currentDisk.dataset.id}`)
+            console.log(`You can't put that piece here. Try again.`)
+
+            // clearDisk()
+            // currentDisk = null
+          }
+        } else {
+          // console.log(`currentDisk is disk${currentDisk.dataset.id}`)
+          // console.log(`destination post is ${e.target.dataset.id}`)
+          currentDisk.parentNode.removeChild(currentDisk)
+          this.insertBefore(currentDisk, this.firstElementChild)
+          // clearDisk()
+          // currentDisk = null
+        }
+        // noChild(e)
+      }) // end of addEventListener
     }
   }
-}
+  // console.log(`current disk right before being cleared is disk${currentDisk.dataset.id}`)
+  // currentDisk = null
+} // end of moveDisk
+
+// function noChild(e) {
+//   if (!(e.target.hasChildNodes())) { // if dest post has no children, move selected disk
+//     currentDisk.parentNode.removeChild(currentDisk)
+//     this.insertBefore(currentDisk, this.firstElementChild)
+//   } else hasChild(e)
+// }
+
+// function hasChild(e) {
+//   if (e.target.firstElementChild) { // if it has children, is the current disk smaller than the first child?
+//     if (currentDisk.dataset.id < e.target.firstElementChild.dataset.id) {
+//       currentDisk.parentNode.removeChild(currentDisk)
+//       this.insertBefore(currentDisk, this.firstElementChild)
+//     } else window.alert(`You can't put that piece here`)
+//   }
+// }
+
+// determine if they won
+// so maybe are all the disks moved from the starting post?
+// are they in order top to bottom
+function winner () {}
 
 // for (var i = 0; i < posts.length; i++) {
 //   posts[i].addEventListener('click', moveDisk)
@@ -47,7 +127,6 @@ function moveDisk() {
 //   alert("I'm not supposed to appear after the first click, only the second.")
 // }
 
-
 // for (var i = 0; i < disks.length; i++) {
 //   disks[i].addEventListener('click', first)
 // }
@@ -56,63 +135,64 @@ function moveDisk() {
 //   posts[i].addEventListener('click', first)
 // }
 
-function first(e) {
+// gotten from https://stackoverflow.com/questions/33262256/javascript-add-click-event-after-another-click-event
+// and some info from Jon Duckett's JS and JQ as well
+// I'm pretty sure it's not firing at the moment bc nothing is being logged to the console
+// function first(e) {
   // e.stopImmediatePropogation()
   // e.preventDefault()
-  e.stopImmediatePropagation()
-  this.removeEventListener('click', first)
-  // want to get the posts that weren't clicked and addEvtLstnr
-  for (var i = 0; i < posts.length; i++) {
-    if (e.target.dataset.id !== posts[i].dataset.id) {
-      console.log(`posts[${i}]'s ID is ${posts[i].dataset.id}`)
-      posts[i].addEventListener('click', moveDisk)
-    }
-  }
-}
-
-
+//   e.stopImmediatePropagation()
+//   this.removeEventListener('click', first)
+//   // want to get the posts that weren't clicked and addEvtLstnr
+//   for (var i = 0; i < posts.length; i++) {
+//     if (e.target.dataset.id !== posts[i].dataset.id) {
+//       console.log(`posts[${i}]'s ID is ${posts[i].dataset.id}`)
+//       posts[i].addEventListener('click', moveDisk)
+//     }
+//   }
+// }
 
 // if currentDisk < dest.lastChild
   // movedisk
   // else
     // alert(try again)
 
-function getTarget(e) {
+function getTarget (e) {
   if (!e) {
     e = window.event
   }
   return e.target || e.srcElement
 }
 
-// moveDisk revision 3
-// function moveDiskr3(e) {
+// moveDisk revision 2
+// function moveDiskr2(e) {
 //   var target, child
 //   target = getTarget(e)
 //   console.log(e.target.dataset)
 //   console.log(target)
 // }
 
-function moveDiskr2(e) {
+// moveDisk revision 1
+// function moveDiskr1(e) {
   // because of the way I handled event delegation, I think I now need to retool this
   // with the POV that e is the post, not the disk
-  console.log('moved')
-  var target, elParent, elGrandparent
-  target = getTarget(e)
-  elParent = target.parentNode
-  console.log(`Target is ${target}`)
-  console.log(`el Parent is ${elParent}`)
-  console.log(`target.parentNode is ${target.parentNode}`)
-  console.log('elParent.childNodes is ' + !!(elParent.childNodes))
-  console.log(target)
+  // console.log('moved')
+  // var target, elParent, elGrandparent
+  // target = getTarget(e)
+  // elParent = target.parentNode
+  // console.log(`Target is ${target}`)
+  // console.log(`el Parent is ${elParent}`)
+  // console.log(`target.parentNode is ${target.parentNode}`)
+  // console.log('elParent.childNodes is ' + !!(elParent.childNodes))
+  // console.log(target)
   // elGrandparent = target.parentNode.parentNode
-  if (target.parentNode.childNodes) {
-    if (elParent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
-      target.parentNode.removeChild(target)
-      posts[2].insertBefore(e.target, posts[2].firstElementChild)
-    }
-  }
-}
-
+//   if (target.parentNode.childNodes) {
+//     if (elParent.firstElementChild.dataset.id === e.srcElement.dataset.id) {
+//       target.parentNode.removeChild(target)
+//       posts[2].insertBefore(e.target, posts[2].firstElementChild)
+//     }
+//   }
+// }
 
 // for (var i = 0; i < posts.length; i++) {
 //   posts[i].addEventListener('click', function(e) {
@@ -134,7 +214,8 @@ function moveDiskr2(e) {
 //   if (e.target.dataset.id) moveDisk()
 // }
 
-// function moveDiskr1(e) {
+// moveDisk first incarnation
+// function moveDisk0(e) {
 //   var parent = e.target.parentNode
   // play.push(parent.dataset.id)
   // we want to get the parent of the disk being moved to present relevant options on where it can be moved next
