@@ -1,2 +1,3 @@
-reset button
+reset button  
+undo button  
 score
