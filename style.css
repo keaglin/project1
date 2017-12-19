@@ -6,7 +6,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-content: center;
-  border: red 2px solid;
+/*   border: red 2px solid; */
   /* flex-basis: 100%; */
 }
 
@@ -46,7 +46,7 @@ div {
 }
 
 main {
-  border: 3px black solid;
+/*   border: 3px black solid; */
   display: flex;
   justify-content: center;
   /* flex-basis: 100%; */
