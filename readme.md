@@ -1,19 +1,20 @@
 # Tower of Hanoi
 
 ## About
-Tower of Hanoi is a mathematical puzzle where the objective is to move a stack of discs from one rod to another. 
+Tower of Hanoi is a mathematical puzzle where the objective is to move a stack of blocks from one stack to another. 
 
 ## Rules
 Tower of Hanoi has 3 easy to follow rules:
-1. Only one disk can be moved at a time
-2. Every move involves taking the top disk from one of the stacks and placing it on top of another stack
-3. No disk can be put on top of a smaller disk
+1. Only one block can be moved at a time
+2. Every move involves taking the top block from one of the stacks and placing it on top of another stack
+3. No block can be put on top of a smaller block
 
 ## How To Play
 1. Open the game in a new tab
-2. Click a disc to move it
-3. ???
-4. Profit
+2. Click a block to select it
+3. Click a stack to move the selected block to
+4. ???
+5. Profit
 
 ## Tech/framework used
 - HTML
